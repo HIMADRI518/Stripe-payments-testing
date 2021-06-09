@@ -1,0 +1,14 @@
+{
+  "name": "sa-takehome-backend",
+  "version": "1.0.0",
+  "description": "SA Takehome Project",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "author": "Christian Sendler",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.3",
+    "stripe": "^8.137.0"
+  }
+}

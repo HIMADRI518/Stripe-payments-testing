@@ -86,7 +86,7 @@ const CheckoutForm = ({ bookInfo }) => {
       setError(null);
       setProcessing(false);
       setSucceeded(true);
-      history.push('/success');
+      history.push(`/success/${payload.paymentIntent.id}`);
     }
   };
 

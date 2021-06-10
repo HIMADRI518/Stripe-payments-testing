@@ -11,7 +11,7 @@ const Router = () => {
       <Switch>
         <Route exact path='/' component={App} />
         <Route exact path='/checkout/:itemId' component={Checkout} />
-        <Route exact path='/success' component={Success} />
+        <Route exact path='/success/:paymentId' component={Success} />
         <Redirect to='/' />
       </Switch>
     </BrowserRouter>

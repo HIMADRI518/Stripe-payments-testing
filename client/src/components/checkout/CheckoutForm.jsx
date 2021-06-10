@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
 
 import './Checkout.css';
 
@@ -26,6 +27,7 @@ const cardStyle = {
 
 const CheckoutForm = ({ bookInfo }) => {
   const [succeeded, setSucceeded] = useState(false);
+  const [email, setEmail] = useState('');
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState('');
   const [disabled, setDisabled] = useState(true);
@@ -60,6 +62,12 @@ const CheckoutForm = ({ bookInfo }) => {
     // eslint-disable-next-line
   }, [bookInfo]);
 
+  const handleEmail = (event) => {
+    if (event.target.value) {
+      setEmail(event.target.value);
+    }
+  };
+
   const handleChange = async (event) => {
     // Listen for changes in the CardElement
     // and display any errors as the customer types their card details
@@ -75,6 +83,7 @@ const CheckoutForm = ({ bookInfo }) => {
       payment_method: {
         card: elements.getElement(CardElement),
       },
+      receipt_email: email,
     });
 
     if (payload.error) {
@@ -90,16 +99,20 @@ const CheckoutForm = ({ bookInfo }) => {
 
   return (
     <Card style={{ padding: '12px' }}>
-      <form id='payment-form' onSubmit={handleSubmit}>
-        <label type='email'>Email address</label>
-        <input
-          style={{ marginBottom: '16px' }}
-          type='email'
-          className='form-control'
-          id='email'
-          name='email'
-          placeholder='your@email.com'
-        />
+      <Form className='text-left' id='payment-form' onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label type='email'>Email address</Form.Label>
+          <Form.Control
+            style={{ marginBottom: '16px' }}
+            type='email'
+            placeholder='your@email.com'
+            required
+            onChange={handleEmail}
+          />
+          <Form.Text className='text-muted'>
+            A digital copy of your book and your receipt will be emailed to you.
+          </Form.Text>
+        </Form.Group>
         <CardElement
           id='card-element'
           options={cardStyle}
@@ -129,7 +142,7 @@ const CheckoutForm = ({ bookInfo }) => {
           </a>{' '}
           Refresh the page to pay again.
         </p>
-      </form>
+      </Form>
     </Card>
   );
 };

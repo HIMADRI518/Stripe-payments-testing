@@ -44,7 +44,8 @@ const CheckoutSuccess = () => {
                 <>
                   <h1>Charge Failed</h1>
                   <p className='text-secondary'>
-                    Please try your purchase again
+                    You were not charged for this puchase. Please try your
+                    purchase again.
                   </p>
                 </>
               ) : (
@@ -59,8 +60,11 @@ const CheckoutSuccess = () => {
                         : '$0.00'}
                     </strong>{' '}
                     for your purchase of{' '}
-                    <strong>{chargeObject.description}</strong>. Your receipt
-                    has been sent to the email provided at checkout.
+                    <strong>
+                      {chargeObject.description.split('Stripe Press: ')[1]}
+                    </strong>
+                    . Your receipt and e-book have been sent to the email you
+                    provided at checkout.
                   </p>
                   <hr />
                   <p className='text-info'>

@@ -77,8 +77,6 @@ const CheckoutForm = ({ bookInfo }) => {
       },
     });
 
-    console.log('paylod:', payload);
-
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`);
       setProcessing(false);
@@ -93,7 +91,7 @@ const CheckoutForm = ({ bookInfo }) => {
   return (
     <Card style={{ padding: '12px' }}>
       <form id='payment-form' onSubmit={handleSubmit}>
-        <label for='email'>Email address</label>
+        <label type='email'>Email address</label>
         <input
           style={{ marginBottom: '16px' }}
           type='email'

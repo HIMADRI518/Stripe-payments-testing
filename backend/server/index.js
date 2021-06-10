@@ -4,12 +4,16 @@ const app = express();
 const stripe = require('stripe')(
   'sk_test_51J07VwFQUNksBCRsoiht6WjDs9jU96PaxA9RfNMQ6OfdXpAHhKC01y5VGooAeUzQE66oX3vcgSneQImp0AMsLGQo00RuRqlKcQ'
 );
+
 app.use(express.static('.'));
 app.use(express.json());
 
 app.post('/create-payment-intent', async (req, res) => {
   const { item } = req.body;
   // Create a PaymentIntent with the order amount and currency
+  if (!item || !item.amount) {
+    return;
+  }
   const paymentIntent = await stripe.paymentIntents.create({
     amount: item.amount,
     currency: 'usd',
@@ -20,4 +24,13 @@ app.post('/create-payment-intent', async (req, res) => {
     clientSecret: paymentIntent.client_secret,
   });
 });
+
+app.post('/retrieve-payment-intent', async (req, res) => {
+  const { paymentId } = req.body;
+
+  const paymentIntent = await stripe.paymentIntents.retrieve(paymentId);
+
+  res.send({ chargeObject: paymentIntent.charges.data });
+});
+
 app.listen(3001, () => console.log('Node server listening on port 3001!'));

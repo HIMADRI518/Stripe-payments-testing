@@ -61,7 +61,7 @@ const Checkout = () => {
     <>
       <Navigation />
       <Container>
-        <Row className='justify-content-md-center'>
+        <Row className='justify-content-md-center text-center'>
           <Col xs lg='6'>
             <div className='text-center' style={{ margin: '20px 0 40px 0' }}>
               <h1>Checkout - Stripe Press</h1>

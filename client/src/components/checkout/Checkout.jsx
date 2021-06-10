@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
@@ -18,10 +19,11 @@ const promise = loadStripe(
   'pk_test_51J07VwFQUNksBCRsflc29BK3FcCXLZkxxlNVVo7ED7xr9TvAD6Mct2G3WsD0zoUp6U7ApBCYThU9ZgFNIKBIBq4I00KN5oFHaB'
 );
 
-const Checkout = ({ history }) => {
+const Checkout = () => {
   const [bookInfo, setBookInfo] = useState({});
   const [error, setError] = useState(null);
 
+  let history = useHistory();
   const { itemId } = useParams();
 
   useEffect(() => {

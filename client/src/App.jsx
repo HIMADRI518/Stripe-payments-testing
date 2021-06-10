@@ -3,11 +3,11 @@ import React from 'react';
 import Navigation from './layout/Navigation.jsx';
 import Store from './components/storefront/Store.jsx';
 
-const App = ({ history }) => {
+const App = () => {
   return (
     <div>
       <Navigation />
-      <Store history={history} />
+      <Store />
     </div>
   );
 };

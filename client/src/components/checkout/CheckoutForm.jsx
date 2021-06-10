@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 import Card from 'react-bootstrap/Card';
@@ -23,7 +24,7 @@ const cardStyle = {
   },
 };
 
-const CheckoutForm = ({ bookInfo, history }) => {
+const CheckoutForm = ({ bookInfo }) => {
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState('');
@@ -31,6 +32,8 @@ const CheckoutForm = ({ bookInfo, history }) => {
   const [clientSecret, setClientSecret] = useState('');
   const stripe = useStripe();
   const elements = useElements();
+
+  let history = useHistory();
 
   const { id, title, amount } = bookInfo;
 

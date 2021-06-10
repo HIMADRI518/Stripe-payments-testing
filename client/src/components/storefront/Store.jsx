@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -10,7 +11,8 @@ import artScienceImg from '../../assets/art-science-eng.jpg';
 import princePersiaImg from '../../assets/prince-of-persia.jpg';
 import workingPublicImg from '../../assets/working-in-public.jpg';
 
-const Store = ({ history }) => {
+const Store = () => {
+  let history = useHistory();
   return (
     <Container>
       <div className='text-center' style={{ margin: '20px 0 40px 0' }}>

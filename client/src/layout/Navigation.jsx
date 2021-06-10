@@ -4,7 +4,7 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
-const Main = () => {
+const Navigation = () => {
   return (
     <Navbar bg='light' expand='lg' style={{ padding: '4px 10%' }}>
       <Navbar.Brand href='/'>Stripe Press</Navbar.Brand>
@@ -15,7 +15,7 @@ const Main = () => {
       <Navbar.Collapse className='justify-content-end' id='basic-navbar-nav'>
         <Nav>
           <Nav.Link href='/'>Home</Nav.Link>
-          <Nav.Link href='#memes' disabled>
+          <Nav.Link href='#' disabled>
             Link
           </Nav.Link>
         </Nav>
@@ -24,4 +24,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Navigation;

@@ -1,15 +1,13 @@
 import React from 'react';
 
-import Container from 'react-bootstrap/Container';
-
-import Main from './layout/Main.jsx';
+import Navigation from './layout/Navigation.jsx';
 import Store from './components/storefront/Store.jsx';
 
-const App = () => {
+const App = ({ history }) => {
   return (
     <div>
-      <Main />
-      <Store />
+      <Navigation />
+      <Store history={history} />
     </div>
   );
 };

@@ -10,7 +10,7 @@ import artScienceImg from '../../assets/art-science-eng.jpg';
 import princePersiaImg from '../../assets/prince-of-persia.jpg';
 import workingPublicImg from '../../assets/working-in-public.jpg';
 
-const Store = () => {
+const Store = ({ history }) => {
   return (
     <Container>
       <div className='text-center' style={{ margin: '20px 0 40px 0' }}>
@@ -31,7 +31,12 @@ const Store = () => {
                 childlike capacity for learning and creativity are accessible to
                 everyone.
               </Card.Text>
-              <Button variant='primary' value='23'>
+              <Button
+                variant='primary'
+                onClick={() => {
+                  history.push('/checkout/1');
+                }}
+              >
                 Purchase - $23
               </Button>
             </Card.Body>
@@ -52,7 +57,12 @@ const Store = () => {
                 the game’s release, Mechner looks back at the journals he kept
                 from 1985 to 1993.
               </Card.Text>
-              <Button variant='primary' value='25'>
+              <Button
+                variant='primary'
+                onClick={() => {
+                  history.push('/checkout/2');
+                }}
+              >
                 Purchase - $25
               </Button>
             </Card.Body>
@@ -73,7 +83,12 @@ const Store = () => {
                 offers a model through which to understand the challenges faced
                 by online creators.
               </Card.Text>
-              <Button variant='primary' value='28'>
+              <Button
+                variant='primary'
+                onClick={() => {
+                  history.push('/checkout/3');
+                }}
+              >
                 Purchase - $28
               </Button>
             </Card.Body>

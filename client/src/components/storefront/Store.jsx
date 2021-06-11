@@ -16,8 +16,10 @@ const Store = () => {
   return (
     <Container>
       <div className='text-center' style={{ margin: '20px 0 40px 0' }}>
-        <h1>Stripe Press Shop</h1>
-        <p className='text-secondary'>Select an item to purchase</p>
+        <h1>Stripe Press E-Book Store</h1>
+        <p className='text-secondary'>
+          Select an item to purchase a digital copy
+        </p>
       </div>
       <Row>
         <Col>

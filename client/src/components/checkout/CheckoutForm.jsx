@@ -27,15 +27,20 @@ const cardStyle = {
 
 const CheckoutForm = ({ bookInfo }) => {
   const [succeeded, setSucceeded] = useState(false);
-  const [email, setEmail] = useState('');
+  const [billingDetails, setBillingDetails] = useState({
+    email: '',
+    name: '',
+    phone: '',
+  });
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState('');
+
   const stripe = useStripe();
   const elements = useElements();
 
-  let history = useHistory();
+  const history = useHistory();
 
   const { id, title, amount } = bookInfo;
 
@@ -62,12 +67,6 @@ const CheckoutForm = ({ bookInfo }) => {
     // eslint-disable-next-line
   }, [bookInfo]);
 
-  const handleEmail = (event) => {
-    if (event.target.value) {
-      setEmail(event.target.value);
-    }
-  };
-
   const handleChange = async (event) => {
     // Listen for changes in the CardElement
     // and display any errors as the customer types their card details
@@ -79,11 +78,18 @@ const CheckoutForm = ({ bookInfo }) => {
     ev.preventDefault();
     setProcessing(true);
 
+    if (!stripe || !elements) {
+      // Stripe.js has not loaded yet. Make sure to disable
+      // form submission until Stripe.js has loaded.
+      return;
+    }
+
     const payload = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),
+        billing_details: billingDetails,
       },
-      receipt_email: email,
+      receipt_email: billingDetails.email,
     });
 
     if (payload.error) {
@@ -101,18 +107,54 @@ const CheckoutForm = ({ bookInfo }) => {
     <Card style={{ padding: '12px' }}>
       <Form className='text-left' id='payment-form' onSubmit={handleSubmit}>
         <Form.Group>
-          <Form.Label type='email'>Email address</Form.Label>
+          <Form.Label>Name</Form.Label>
           <Form.Control
             style={{ marginBottom: '16px' }}
+            id='name'
+            type='text'
+            placeholder='Jane Doe'
+            autocomplete='name'
+            value={billingDetails.name}
+            required
+            onChange={(e) => {
+              setBillingDetails({ ...billingDetails, name: e.target.value });
+            }}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Phone</Form.Label>
+          <Form.Control
+            style={{ marginBottom: '16px' }}
+            id='phone'
+            type='tel'
+            placeholder='(123) 456-7890'
+            autocomplete='tel'
+            value={billingDetails.phone}
+            required
+            onChange={(e) => {
+              setBillingDetails({ ...billingDetails, phone: e.target.value });
+            }}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            style={{ marginBottom: '16px' }}
+            id='email'
             type='email'
             placeholder='your@email.com'
+            autocomplete='email'
+            value={billingDetails.email}
             required
-            onChange={handleEmail}
+            onChange={(e) => {
+              setBillingDetails({ ...billingDetails, email: e.target.value });
+            }}
           />
           <Form.Text className='text-muted'>
             A digital copy of your book and your receipt will be emailed to you.
           </Form.Text>
         </Form.Group>
+
         <CardElement
           id='card-element'
           options={cardStyle}
@@ -123,7 +165,7 @@ const CheckoutForm = ({ bookInfo }) => {
             {processing ? (
               <div className='spinner' id='spinner'></div>
             ) : (
-              'Pay now'
+              `Pay $${(amount / 100).toFixed(2)}`
             )}
           </span>
         </button>

@@ -12,7 +12,7 @@ import princePersiaImg from '../../assets/prince-of-persia.jpg';
 import workingPublicImg from '../../assets/working-in-public.jpg';
 
 const Store = () => {
-  let history = useHistory();
+  const history = useHistory();
   return (
     <Container>
       <div className='text-center' style={{ margin: '20px 0 40px 0' }}>

@@ -14,7 +14,6 @@ import Button from 'react-bootstrap/Button';
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
-// loadStripe is initialized with your real test publishable API key.
 const promise = loadStripe(
   'pk_test_51J07VwFQUNksBCRsflc29BK3FcCXLZkxxlNVVo7ED7xr9TvAD6Mct2G3WsD0zoUp6U7ApBCYThU9ZgFNIKBIBq4I00KN5oFHaB'
 );
@@ -23,7 +22,7 @@ const Checkout = () => {
   const [bookInfo, setBookInfo] = useState({});
   const [error, setError] = useState(null);
 
-  let history = useHistory();
+  const history = useHistory();
   const { itemId } = useParams();
 
   useEffect(() => {
@@ -63,7 +62,7 @@ const Checkout = () => {
       <Container>
         <Row className='justify-content-md-center text-center'>
           <Col xs lg='6'>
-            <div className='text-center' style={{ margin: '20px 0 40px 0' }}>
+            <div className='text-center' style={{ margin: '20px 0 20px 0' }}>
               <h1>Checkout - Stripe Press</h1>
               <p className='text-secondary'>
                 {bookInfo.title || `No Book Selected`}

@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 
 const CheckoutSuccess = () => {
   const [chargeObject, setChargeObject] = useState({});
-  let history = useHistory();
+  const history = useHistory();
   const { paymentId } = useParams();
 
   useEffect(() => {

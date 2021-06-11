@@ -44,7 +44,7 @@ const CheckoutSuccess = () => {
                 <>
                   <h1>Charge Failed</h1>
                   <p className='text-secondary'>
-                    You were not charged for this puchase. Please try your
+                    You were not charged for this purchase. Please try your
                     purchase again.
                   </p>
                 </>

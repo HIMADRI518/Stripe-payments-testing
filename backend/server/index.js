@@ -12,8 +12,10 @@ app.post('/create-payment-intent', async (req, res) => {
   const { item } = req.body;
   // Create a PaymentIntent with the order amount and currency
   if (!item || !item.amount) {
+    // Ideally this should send a response back to the client indicating the request for payment intent failed
     return;
   }
+
   const paymentIntent = await stripe.paymentIntents.create({
     amount: item.amount,
     currency: 'usd',
@@ -27,6 +29,11 @@ app.post('/create-payment-intent', async (req, res) => {
 
 app.post('/retrieve-payment-intent', async (req, res) => {
   const { paymentId } = req.body;
+
+  if (!paymentId) {
+    // Ideally this should send a response back to the client indicating an invalid paymentId was provided
+    return;
+  }
 
   const paymentIntent = await stripe.paymentIntents.retrieve(paymentId);
 
